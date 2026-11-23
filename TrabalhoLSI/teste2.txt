@@ -1,0 +1,32 @@
+
+RELATÓRIO ANALÍTICO (TF-IDF vs LSI)
+Consulta: "futebol" | Termos indexados: futebol
+Acervo: 15 documentos, 85 termos | k = 3 | Energia preservada: 25.92%
+Dimensões -> A: (85, 15), U: (85, 15), Sigma: (15, 15), V^T: (15, 15) | U_k: (85, 3), Sigma_k: (3, 3), V^T_k: (3, 15)
+
+Top 5 - Busca Tradicional (sem SVD):
+  1. Doc 14 (score: 0.4169) - Praticar esporte como natacao e futebol faz bem para a saude.
+  2. Doc 01 (score: 0.0000) - O chef preparou uma receita deliciosa de bolo de chocolate no forno.
+  3. Doc 02 (score: 0.0000) - Assar massas e paes no forno exige uma cozinha bem equipada.
+  4. Doc 03 (score: 0.0000) - Esta receita tradicional de sobremesa doce leva ingredientes frescos.
+  5. Doc 04 (score: 0.0000) - O chef do restaurante serviu uma comida italiana com molho de tomate.
+
+Top 5 - Busca com LSI (SVD k=3):
+  1. Doc 11 (LSI: 1.0000 | TF-IDF: 0.0000 | era #12, subiu 11 pos.) - A corrida diaria no parque melhora o condicionamento e a saude.
+  2. Doc 14 (LSI: 1.0000 | TF-IDF: 0.4169 | era #1, desceu 1 pos.) - Praticar esporte como natacao e futebol faz bem para a saude.
+  3. Doc 12 (LSI: 0.0045 | TF-IDF: 0.0000 | era #13, subiu 10 pos.) - O treino de musculacao fortalece o corpo e aumenta a resistencia.
+  4. Doc 10 (LSI: 0.0000 | TF-IDF: 0.0000 | era #11, subiu 7 pos.) - Programadores projetam algoritmos eficientes para processar dados no computador.
+  5. Doc 09 (LSI: 0.0000 | TF-IDF: 0.0000 | era #10, subiu 5 pos.) - Bancos de dados e sistemas operacionais gerenciam a memoria do computador.
+
+Resumo comparativo:
+- Com correspondência exata (TF-IDF > 0): 1 de 15 documentos
+- Com score positivo na LSI (LSI > 0): 7 de 15 documentos
+- Recuperados sem correspondência exata (TF-IDF = 0 e LSI > 0): 6 documentos
+  * Doc 11 (LSI: 1.0000) - A corrida diaria no parque melhora o condicionamento e a saude.
+  * Doc 12 (LSI: 0.0045) - O treino de musculacao fortalece o corpo e aumenta a resistencia.
+  * Doc 10 (LSI: 0.0000) - Programadores projetam algoritmos eficientes para processar dados no computador.
+  * Doc 09 (LSI: 0.0000) - Bancos de dados e sistemas operacionais gerenciam a memoria do computador.
+  * Doc 03 (LSI: 0.0000) - Esta receita tradicional de sobremesa doce leva ingredientes frescos.
+  * Doc 04 (LSI: 0.0000) - O chef do restaurante serviu uma comida italiana com molho de tomate.
+
+Obs: A similaridade na LSI vem da projeção no espaço reduzido (coocorrência estatística) e pode incluir aproximações residuais sem relação semântica real.

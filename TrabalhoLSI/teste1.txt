@@ -1,0 +1,39 @@
+
+RELATÓRIO ANALÍTICO (TF-IDF vs LSI)
+Consulta: "chef" | Termos indexados: chef
+Acervo: 15 documentos, 85 termos | k = 3 | Energia preservada: 25.92%
+Dimensões -> A: (85, 15), U: (85, 15), Sigma: (15, 15), V^T: (15, 15) | U_k: (85, 3), Sigma_k: (3, 3), V^T_k: (3, 15)
+
+Top 5 - Busca Tradicional (sem SVD):
+  1. Doc 01 (score: 0.3540) - O chef preparou uma receita deliciosa de bolo de chocolate no forno.
+  2. Doc 04 (score: 0.3341) - O chef do restaurante serviu uma comida italiana com molho de tomate.
+  3. Doc 02 (score: 0.0000) - Assar massas e paes no forno exige uma cozinha bem equipada.
+  4. Doc 03 (score: 0.0000) - Esta receita tradicional de sobremesa doce leva ingredientes frescos.
+  5. Doc 05 (score: 0.0000) - Confeiteiros preparam tortas, doces e bolos na cozinha para festas.
+
+Top 5 - Busca com LSI (SVD k=3):
+  1. Doc 01 (LSI: 1.0000 | TF-IDF: 0.3540 | era #1, manteve pos.) - O chef preparou uma receita deliciosa de bolo de chocolate no forno.
+  2. Doc 02 (LSI: 1.0000 | TF-IDF: 0.0000 | era #3, subiu 1 pos.) - Assar massas e paes no forno exige uma cozinha bem equipada.
+  3. Doc 03 (LSI: 1.0000 | TF-IDF: 0.0000 | era #4, subiu 1 pos.) - Esta receita tradicional de sobremesa doce leva ingredientes frescos.
+  4. Doc 04 (LSI: 1.0000 | TF-IDF: 0.3341 | era #2, desceu 2 pos.) - O chef do restaurante serviu uma comida italiana com molho de tomate.
+  5. Doc 05 (LSI: 1.0000 | TF-IDF: 0.0000 | era #5, manteve pos.) - Confeiteiros preparam tortas, doces e bolos na cozinha para festas.
+
+Resumo comparativo:
+- Com correspondência exata (TF-IDF > 0): 2 de 15 documentos
+- Com score positivo na LSI (LSI > 0): 15 de 15 documentos
+- Recuperados sem correspondência exata (TF-IDF = 0 e LSI > 0): 13 documentos
+  * Doc 02 (LSI: 1.0000) - Assar massas e paes no forno exige uma cozinha bem equipada.
+  * Doc 03 (LSI: 1.0000) - Esta receita tradicional de sobremesa doce leva ingredientes frescos.
+  * Doc 05 (LSI: 1.0000) - Confeiteiros preparam tortas, doces e bolos na cozinha para festas.
+  * Doc 06 (LSI: 1.0000) - O desenvolvimento de software moderno exige boas praticas de programacao.
+  * Doc 13 (LSI: 0.0009) - Atletas seguem rotinas pesadas de exercicio fisico e alimentacao.
+  * Doc 15 (LSI: 0.0003) - O preparo fisico do atleta depende de treino regular e descanso.
+  * Doc 12 (LSI: 0.0001) - O treino de musculacao fortalece o corpo e aumenta a resistencia.
+  * Doc 07 (LSI: 0.0000) - Engenheiros escrevem codigo limpo para criar aplicativos e sistemas.
+  * Doc 09 (LSI: 0.0000) - Bancos de dados e sistemas operacionais gerenciam a memoria do computador.
+  * Doc 08 (LSI: 0.0000) - A linguagem Python facilita a criacao de sistemas e analise de dados.
+  * Doc 10 (LSI: 0.0000) - Programadores projetam algoritmos eficientes para processar dados no computador.
+  * Doc 11 (LSI: 0.0000) - A corrida diaria no parque melhora o condicionamento e a saude.
+  * Doc 14 (LSI: 0.0000) - Praticar esporte como natacao e futebol faz bem para a saude.
+
+Obs: A similaridade na LSI vem da projeção no espaço reduzido (coocorrência estatística) e pode incluir aproximações residuais sem relação semântica real.
